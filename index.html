@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Converter</title>
+    <link rel=icon href="https://i.postimg.cc/7ZVCp84K/json-file.png" title="json file icons">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">JSON Converter</h1>
+        <div class="form-group">
+            <textarea id="jsonInput" class="form-control" rows="10" placeholder='Masukkan data JSON di sini'></textarea>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="startDateFilter">Start Date:</label>
+                <input type="date" id="startDateFilter" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label for="endDateFilter">End Date:</label>
+                <input type="date" id="endDateFilter" class="form-control">
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="convert()">Submit</button>
+        <div id="filteredCount" class="mt-4"></div> <!-- Menampilkan jumlah list yang difilter -->
+        <div id="output" class="mt-4"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
