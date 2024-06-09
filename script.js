@@ -11,6 +11,7 @@ function convert() {
         // Hasil output
         let output = '';
         let filteredCount = 0; // variabel untuk menghitung jumlah list yang difilter
+        let accountNames = []; // array untuk menyimpan nama akun
 
         // Proses setiap item dalam data
         data.forEach(item => {
@@ -29,15 +30,38 @@ function convert() {
                     output += `</div></div>`;
                     
                     filteredCount++; // Tambahkan jumlah list yang difilter
+                    accountNames.push(account.value); // Tambahkan nama akun ke array
                 }
             });
         });
 
         // Tampilkan hasil dan jumlah list yang difilter
         document.getElementById('output').innerHTML = output;
-        document.getElementById('filteredCount').innerHTML = `List Count: ${filteredCount}`; // Menampilkan jumlah list yang difilter
+        document.getElementById('filteredCount').innerHTML = `<h2>List Count: ${filteredCount}</h2>`; // Menampilkan jumlah list yang difilter
+        
+        // Simpan nama akun di data atribut untuk digunakan oleh tombol salin
+        document.getElementById('copyButton').dataset.accountNames = accountNames.join('\n');
+
+        // Tampilkan tombol copy jika ada data yang difilter
+        if (filteredCount > 0) {
+            document.getElementById('copyButton').style.display = 'block';
+        } else {
+            document.getElementById('copyButton').style.display = 'none';
+        }
     } catch (error) {
-        // Tampilkan pesan kesalahan jika JSON tidak valid
-        document.getElementById('output').innerHTML = '<p style="color: red;">Invalid JSON data.</p>';
+        // Tampilkan pesan kesalahan jika JSON tidak valid menggunakan SweetAlert
+        swal("Error", "Invalid JSON data.", "error");
+        document.getElementById('copyButton').style.display = 'none'; // Sembunyikan tombol salin jika ada kesalahan
     }
+}
+
+function copyAccountNames() {
+    const accountNames = document.getElementById('copyButton').dataset.accountNames;
+    const tempTextArea = document.createElement('textarea');
+    tempTextArea.value = accountNames;
+    document.body.appendChild(tempTextArea);
+    tempTextArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempTextArea);
+    swal("Success", "Account names copied to clipboard", "success");
 }
